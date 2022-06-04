@@ -8,6 +8,8 @@ except Exception:
 
 posts_db = client['sample_airbnb']
 collection = posts_db['listingsAndReviews']
+
+print(f'count: {collection.count_documents({})}')
 return_values = collection.aggregate(
     [
         {
