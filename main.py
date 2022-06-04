@@ -1,16 +1,33 @@
-# This is a sample Python script.
+import pymongo
+client = pymongo.MongoClient("")
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+try:
+    print(client.server_info())
+except Exception:
+    print("Unable to connect to the server.")
+
+posts_db = client['sample_airbnb']
+collection = posts_db['listingsAndReviews']
+return_values = collection.aggregate(
+    [
+        {
+            '$match': {
+                'beds': {
+                    '$gt': 2
+                }
+            }
+        }, {
+            '$sort': {
+                'price': 1
+            }
+        }, {
+            '$limit': 5
+        }
+    ]
+)
+
+for item in return_values:
+    print(item)
+print('===')
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/

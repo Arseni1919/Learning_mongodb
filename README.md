@@ -24,6 +24,7 @@ Create a new collection:
 ```shell
 db.createCollection("posts")
 ```
+### Create
 Create ot insert the docs we can use insert-one or insert-many methods:
 ```shell
 db.posts.insertOne({
@@ -43,6 +44,7 @@ db.posts.insertMany([
   {title: 'Post 4', body: 'Body post', category: 'News', likes: 1, tags: ['news', 'events'], date: Date()}
 ])
 ```
+### Read
 How to look what is inside:
 ```shell
 db.posts.find()
@@ -71,6 +73,7 @@ $gt, $gte, $lt, $lte
 ```shell
 db.posts.findOne({likes: {$gt: 3}})
 ```
+### Update
 Update the existing doc:
 ```shell
 db.posts.updateOne({title: 'Post 1'}, { $set: {category: "Tech"}})
@@ -88,82 +91,55 @@ db.posts.updateOne(
 ```
 Now lets update many:
 ```shell
-
+db.posts.updateMany({}, { $inc: {likes: 1}})
+```
+### Delete
+We have methods deleteOne or deleteMany:
+```shell
+db.posts.deleteOne({title: "Post 4"})
+```
+Delete according to parameters:
+```shell
+db.posts.deleteMany({category: "News"})
 ```
 
-```shell
+### Python
 
-```
+How to di it in Python:
+The link for conection we are taking from Atlas.
+```python
+import pymongo
 
-```shell
+client = pymongo.MongoClient("")
 
-```
+try:
+    print(client.server_info())
+except Exception:
+    print("Unable to connect to the server.")
+    
+posts_db = client['sample_airbnb']
+collection = posts_db['listingsAndReviews']
+return_values = collection.aggregate(
+    [
+        {
+            '$match': {
+                'beds': {
+                    '$gt': 2
+                }
+            }
+        }, {
+            '$sort': {
+                'price': 1
+            }
+        }, {
+            '$limit': 5
+        }
+    ]
+)
 
-```shell
-
-```
-
-```shell
-
-```
-
-```shell
-
-```
-
-```shell
-
-```
-
-```shell
-
-```
-
-```shell
-
-```
-
-```shell
-
-```
-
-```shell
-
-```
-
-```shell
-
-```
-
-```shell
-
-```
-
-```shell
-
-```
-
-```shell
-
-```
-
-```shell
-
-```
-
-```shell
-
-```
-
-```shell
-
-```
-
-```shell
-
-```
-```shell
-
+for item in return_values:
+    print(item)
+print('===')
 ```
 
 ## Credits
