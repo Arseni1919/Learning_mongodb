@@ -1,0 +1,22 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+.idea
+__pycache__
+.env
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+venv
+env
+.pytest_cache
+.coverage
+lightning_logs
+.ipynb_checkpoints
+.ckpt
+example.ckpt
+.neptune
+#data
+saved_model
